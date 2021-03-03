@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, MouseEvent } from 'react';
 import {
   CREATE_EVENT,
   DELETE_ALL_EVENTS,
@@ -8,14 +8,16 @@ import {
 import AppContext from '../contexts/AppContext';
 import { timeCurrentIso8601 } from '../utils';
 
-const EventForm = () => {
+const EventForm: React.FC = (): JSX.Element => {
   const { state, dispatch } = useContext(AppContext);
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [body, setBody] = useState<string>('');
 
-  const handleChangeTile = (e) => setTitle(e.target.value);
-  const handleChangeBody = (e) => setBody(e.target.value);
-  const addEvent = (e) => {
+  const handleChangeTile = (e: React.FormEvent<HTMLInputElement>) =>
+    setTitle(e.currentTarget.value);
+  const handleChangeBody = (e: React.FormEvent<HTMLTextAreaElement>) =>
+    setBody(e.currentTarget.value);
+  const addEvent = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch({
       type: CREATE_EVENT,
@@ -32,7 +34,7 @@ const EventForm = () => {
     setTitle('');
     setBody('');
   };
-  const deleteAllEvents = (e) => {
+  const deleteAllEvents = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const result = window.confirm('全てのイベントを本当に削除しても良いですか？');
     if (result) {
@@ -45,7 +47,7 @@ const EventForm = () => {
       });
     }
   };
-  const deleteAllOperationLogs = (e) => {
+  const deleteAllOperationLogs = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const result = window.confirm('全ての操作ログを本当に削除しても良いですか？');
     if (result) dispatch({ type: DELETE_ALL_OPERATION_LOGS });

@@ -3,7 +3,15 @@ import { ADD_OPERATION_LOG, DELETE_EVENT } from '../actions';
 import AppContext from '../contexts/AppContext';
 import { timeCurrentIso8601 } from '../utils';
 
-const Event = ({ event }) => {
+interface Props {
+  event: {
+    id: number;
+    body: string;
+    title: string;
+  };
+}
+
+const Event: React.FC<Props> = ({ event }) => {
   const { dispatch } = useContext(AppContext);
   const id = event.id;
   const handleClickDeleteButton = () => {

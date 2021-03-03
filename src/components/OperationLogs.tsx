@@ -2,7 +2,12 @@ import React, { useContext } from 'react';
 import AppContext from '../contexts/AppContext';
 import OperationLog from './OperationLog';
 
-const OperationLogs = () => {
+interface OperationLogMold {
+  description: string;
+  operatedAt: string;
+}
+
+const OperationLogs: React.FC = (): JSX.Element => {
   const { state } = useContext(AppContext);
   return (
     <>
@@ -15,7 +20,7 @@ const OperationLogs = () => {
           </tr>
         </thead>
         <tbody>
-          {state.operationLogs.map((operationLog, index) => (
+          {state.operationLogs.map((operationLog: OperationLogMold, index: number) => (
             <OperationLog key={index} operationLog={operationLog} />
           ))}
         </tbody>

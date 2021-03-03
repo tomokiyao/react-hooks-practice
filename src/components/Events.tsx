@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import Event from './Event';
 import AppContext from '../contexts/AppContext';
 
-const Events = () => {
+interface EventMold {
+  id: number;
+  body: string;
+  title: string;
+}
+
+const Events: React.FC<{}> = (): JSX.Element => {
   const { state } = useContext(AppContext);
   return (
     <>
@@ -17,7 +23,7 @@ const Events = () => {
           </tr>
         </thead>
         <tbody>
-          {state.events.map((event, index) => (
+          {state.events.map((event: EventMold, index: number) => (
             <Event key={index} event={event} />
           ))}
         </tbody>

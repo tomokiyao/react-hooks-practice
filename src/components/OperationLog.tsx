@@ -1,6 +1,13 @@
 import React from 'react';
 
-const OperationLog = ({ operationLog }) => {
+interface Props {
+  operationLog: {
+    description: string;
+    operatedAt: string;
+  };
+}
+
+const OperationLog: React.FC<Props> = ({ operationLog }): JSX.Element => {
   return (
     <tr>
       <td>{operationLog.description}</td>

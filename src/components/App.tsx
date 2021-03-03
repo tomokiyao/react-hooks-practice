@@ -8,9 +8,25 @@ import reducer from '../reducers';
 
 const APP_KEY = 'appWithRedux';
 
-const App = () => {
-  const appState = localStorage.getItem(APP_KEY);
-  const initialState = appState ? JSON.parse(appState) : { events: [], operationLogs: [] };
+interface Event {
+  id: number;
+  body: string;
+  title: string;
+}
+interface OperationLog {
+  description: string;
+  operatedAt: string;
+}
+interface InitialState {
+  events: Event[];
+  operationLogs: OperationLog[];
+}
+
+const App: React.FC<{}> = () => {
+  const appState: string | null = localStorage.getItem(APP_KEY);
+  const initialState: InitialState = appState
+    ? JSON.parse(appState)
+    : { events: [], operationLogs: [] };
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
